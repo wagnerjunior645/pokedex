@@ -1,7 +1,7 @@
 # Gerando build pelo docker
 A aplicação já está configurada no docker -- Entrar na raiz do projeto e executar -- [ docker-compose up ] vai gerar o container e rodar o mesmo
 
-# pokedexTest
+# Pokedex Test
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
 

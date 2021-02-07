@@ -1,11 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { debounceTime, finalize, take, tap } from 'rxjs/operators';
 import { PokemonModel } from 'src/app/shared/models/pokemon.model';
 import { ResponseModel } from 'src/app/shared/models/response.model';
 import { getPaginationInURL } from 'src/app/shared/utils/getPaginationInURL.util';
 import { PokemonsService } from '../../http/pokemons.service';
+import { FavoriteService } from '../../services/favorite.service';
 import { ScrollService } from '../../services/scroll.service';
 
 @Component({
@@ -19,13 +20,16 @@ export class HomeComponent implements OnInit {
   response: ResponseModel<PokemonModel[]>;
   isLoading = false;
   errorMessage: string;
+  favoritesPokemons$: Observable<number[]>;
 
   constructor(
     private pokemonsService: PokemonsService,
-    private scrollService: ScrollService
+    private scrollService: ScrollService,
+    private favoriteService: FavoriteService
   ) {}
 
   ngOnInit(): void {
+    this.favoritesPokemons$ = this.favoriteService.favorite$;
     this.init();
     this.scrollService.detectScrollOnBotton
       .pipe(debounceTime(300))
@@ -99,5 +103,29 @@ export class HomeComponent implements OnInit {
     }
     this.errorMessage =
       'Estamos enfrentando problemas técnicos, tente novamente mais tarde.';
+  }
+
+  getFavoritesPokemons(ids: number[]): void {
+    forkJoin(ids.map((id) => this.pokemonsService.findById(id)))
+      .pipe(
+        take(1),
+        finalize(() => (this.isLoading = false))
+      )
+      .subscribe(
+        (pokemons) => {
+          this.pokemons = [
+            ...pokemons.map((pokemon) => {
+              return {
+                id: pokemon.id,
+                name: pokemon.name,
+                url: `/${pokemon.id}/`,
+              };
+            }),
+          ];
+        },
+        (httpErrorResponse: HttpErrorResponse) => {
+          this.onError(httpErrorResponse);
+        }
+      );
   }
 }

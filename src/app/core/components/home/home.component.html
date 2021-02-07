@@ -1,6 +1,13 @@
 <div class="home">
   <h1>Pokedex</h1>
   <app-search-bar (searchValue)="search($event)"></app-search-bar>
+  <ng-container *ngIf="favoritesPokemons$ | async as favoritesIds">
+    <div class="w-100 text-center">
+      <button class="btn btn-primary" (click)="getFavoritesPokemons(favoritesIds)" *ngIf="favoritesIds.length > 0">
+        Pokemons Favoritados
+      </button>
+    </div>
+  </ng-container>
   <div class="pokedex">
     <ng-container *ngIf="pokemons.length; else noHavePokemons">
       <app-pokemon-card
