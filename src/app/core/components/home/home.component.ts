@@ -30,19 +30,19 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.favoritesPokemons$ = this.favoriteService.favorite$;
-    this.init();
+    this.init(null, 'normal');
     this.scrollService.detectScrollOnBotton
       .pipe(debounceTime(300))
       .subscribe(() => {
         if (this.response.next) {
-          this.init(this.response.next);
+          this.init(this.response.next, 'normal');
         }
       });
   }
 
   search(searchValue: string): void {
     if (!searchValue) {
-      this.init();
+      this.init(null, 'reset');
       return;
     }
     this.isLoading = true;
@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  private init(url?: string): void {
+  private init(url?: string, option?: 'reset' | 'normal'): void {
     const queryParams = getPaginationInURL(url);
     this.isLoading = true;
     this.pokemonsService
@@ -86,6 +86,11 @@ export class HomeComponent implements OnInit {
       )
       .subscribe(
         (response: ResponseModel<PokemonModel[]>) => {
+          if (option && option === 'reset') {
+            this.response = response;
+            this.pokemons = response.results;
+            return;
+          }
           this.response = response;
           this.pokemons = this.pokemons.concat(response.results);
         },
