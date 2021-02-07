@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  angular:
+    image: angular-deploy
+    build: .
+    ports:
+      - 8082:80

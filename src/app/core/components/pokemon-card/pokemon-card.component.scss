@@ -1,0 +1,42 @@
+.poke-card {
+  text-align: center;
+  margin: 15px;
+  position: relative;
+  cursor: pointer;
+  border-radius: 7%;
+  padding: 17px;
+  box-shadow: 0 3px 15px #64646480;
+  .container-image {
+    width: 120px;
+    height: 120px;
+    background-color: #ffffff99;
+    border-radius: 50%;
+    img {
+      margin-top: 17px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  .number {
+    background-color: #7571714a;
+    color: #000;
+    padding: 5px;
+    border-radius: 10px;
+  }
+  .info-container {
+    padding: 5px;
+    margin-top: 10px;
+
+    h4 {
+      margin: 0px;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-size: 1.28rem;
+      letter-spacing: 1px;
+    }
+
+    > span {
+      font-size: 0.9rem;
+    }
+  }
+}

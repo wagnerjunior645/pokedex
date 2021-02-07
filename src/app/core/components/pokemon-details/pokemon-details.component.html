@@ -1,0 +1,8 @@
+<div class="pokemon-details">
+  <ng-container *ngIf="pokemonDetails$ | async as pokemonDetail; else isLoading">
+    <span>Tipo: {{pokemonDetail.types[0].type.name | titlecase}}</span>
+  </ng-container>
+  <ng-template #isLoading>
+    <app-loader></app-loader>
+  </ng-template>
+</div>

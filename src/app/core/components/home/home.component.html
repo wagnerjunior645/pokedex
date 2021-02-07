@@ -1,0 +1,21 @@
+<div class="home">
+  <h1>Pokedex</h1>
+  <app-search-bar (searchValue)="search($event)"></app-search-bar>
+  <div class="pokedex">
+    <ng-container *ngIf="pokemons.length; else noHavePokemons">
+      <app-pokemon-card
+        *ngFor="let pokemon of pokemons"
+        [pokemon]="pokemon"
+      ></app-pokemon-card>
+    </ng-container>
+    <ng-template #noHavePokemons>
+      <div *ngIf="!isLoading" class="error-pokemons">
+        <h3>Nenhum pokemon por aqui =(</h3>
+        <h5>{{ errorMessage }}</h5>
+      </div>
+    </ng-template>
+  </div>
+  <div *ngIf="isLoading" class="loading">
+    <app-loader></app-loader>
+  </div>
+</div>

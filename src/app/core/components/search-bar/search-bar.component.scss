@@ -1,0 +1,10 @@
+.search-bar {
+  max-width: 600px;
+  margin: auto;
+  span {
+    cursor: pointer;
+    &:hover {
+      background-color: #bac1c7;
+    }
+  }
+}

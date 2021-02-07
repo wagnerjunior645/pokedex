@@ -1,0 +1,8 @@
+<ng-container *ngIf="changeFavorite$ | async as favorites">
+  <div class="favorite">
+    <i *ngIf="!favorites.includes(id);else favorited" class="fa fa-heart-o" aria-hidden="true"></i>
+    <ng-template #favorited>
+        <i class="fa fa-heart favorited" aria-hidden="true"></i>
+    </ng-template>
+  </div>
+</ng-container>

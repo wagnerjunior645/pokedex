@@ -1,0 +1,31 @@
+.home {
+  @media only screen and (max-width: 600px) {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  margin-bottom: 150px;
+  > h1 {
+    text-align: center;
+    color: brown;
+    margin-top: 50px;
+    margin-bottom: 25px;
+  }
+  .pokedex {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    .error-pokemons {
+      text-align: center;
+    }
+  }
+  .loading {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    // margin-bottom: 100px;
+  }
+}

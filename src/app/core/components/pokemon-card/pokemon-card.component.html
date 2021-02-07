@@ -1,0 +1,19 @@
+<div class="poke-card" [ngStyle]="{ 'background-color': color }" (click)="favorite(pokemon.id)">
+  <app-favorite-card [id]="pokemon.id"></app-favorite-card>
+  <div class="container-image">
+    <img
+      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{
+        pokemon.url.split('/').reverse()[1]
+      }}.png"
+      [alt]="pokemon.name"
+    />
+  </div>
+  <div class="info-container">
+    <span class="number">#{{ pokemon.url | numberPokemon }}</span>
+    <h4>{{ pokemon.name | titlecase }}</h4>
+  </div>
+  <app-pokemon-details
+    [id]="pokemon.id"
+    (colorType)="changeColorBackground($event)"
+  ></app-pokemon-details>
+</div>
